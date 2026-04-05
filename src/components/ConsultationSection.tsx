@@ -4,8 +4,10 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
-import { Calendar, User, Mail, Phone } from 'lucide-react';
+import { Calendar, User, Mail, Phone, ChevronDown } from 'lucide-react';
 import { useLang } from '@/contexts/LanguageContext';
+import { Calendar as CalendarComponent } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 const schema = z.object({
   name: z.string().trim().min(2, 'Name is required').max(100),
@@ -19,15 +21,26 @@ type FormData = z.infer<typeof schema>;
 const ConsultationSection = () => {
   const { t } = useLang();
   const [submitted, setSubmitted] = useState(false);
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>({
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
+  const [openCalendar, setOpenCalendar] = useState(false);
+  const { register, handleSubmit, reset, formState: { errors }, setValue } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
 
   const onSubmit = () => {
     toast.success(t('Consultation booked successfully! ✨', 'تم حجز الاستشارة بنجاح! ✨'));
     setSubmitted(true);
+    setSelectedDate(undefined);
     reset();
     setTimeout(() => setSubmitted(false), 4000);
+  };
+
+  const handleDateSelect = (date: Date | undefined) => {
+    setSelectedDate(date);
+    if (date) {
+      setValue('date', date.toISOString().split('T')[0]);
+      setOpenCalendar(false);
+    }
   };
 
   const inputClass = "w-full px-5 py-3 rounded-xl bg-muted/30 border border-foreground/[0.08] text-foreground placeholder:text-muted-foreground text-sm focus:outline-none focus:border-primary/40 transition-colors";
@@ -129,11 +142,32 @@ const ConsultationSection = () => {
 
                 <div className="relative">
                   <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
+                  <Popover open={openCalendar} onOpenChange={setOpenCalendar}>
+                    <PopoverTrigger asChild>
+                      <button
+                        type="button"
+                        className={`${inputClass} pl-11 pr-11 text-left flex items-center justify-between`}
+                      >
+                        <span className={selectedDate ? 'text-foreground' : 'text-muted-foreground'}>
+                          {selectedDate ? selectedDate.toLocaleDateString() : t('Select a date', 'اختر تاريخاً')}
+                        </span>
+                        <ChevronDown size={16} className="text-muted-foreground" />
+                      </button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0 bg-background border border-foreground/[0.08]" align="start">
+                      <CalendarComponent
+                        mode="single"
+                        selected={selectedDate}
+                        onSelect={handleDateSelect}
+                        disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))}
+                        className="rounded-md"
+                      />
+                    </PopoverContent>
+                  </Popover>
                   <input
                     {...register('date')}
-                    type="date"
-                    className={`${inputClass} pl-11`}
-                    min={new Date().toISOString().split('T')[0]}
+                    type="hidden"
+                    value={selectedDate ? selectedDate.toISOString().split('T')[0] : ''}
                   />
                   {errors.date && <p className="text-destructive text-xs mt-1">{t('Date is required', 'التاريخ مطلوب')}</p>}
                 </div>
