@@ -1,27 +1,24 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLang } from '@/contexts/LanguageContext';
+import SectionHeading from '@/components/SectionHeading';
+import aboutImg from '@/assets/about-image.jpg';
 
 const ResultsSection = () => {
   const { t } = useLang();
   const [sliderPos, setSliderPos] = useState(50);
 
   return (
-    <section className="section-padding max-w-7xl mx-auto">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center mb-16"
-      >
-        <p className="text-primary/70 tracking-[0.2em] text-xs uppercase mb-4">
-          {t('Real Results', 'نتائج حقيقية')}
-        </p>
-        <h2 className="font-serif text-3xl md:text-5xl font-semibold">
-          {t('Before & ', 'قبل و')}
-          <span className="text-gradient-rose">{t('After', 'بعد')}</span>
-        </h2>
-      </motion.div>
+    <section className="section">
+      <SectionHeading
+        eyebrowEn="Real Results"
+        eyebrowAr="نتائج حقيقية"
+        titleEn="Before & "
+        titleAr="قبل و"
+        highlightEn="After"
+        highlightAr="بعد"
+      />
 
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
@@ -29,36 +26,54 @@ const ResultsSection = () => {
         viewport={{ once: true }}
         className="max-w-2xl mx-auto glass-card p-8 md:p-12"
       >
-        {/* Simulated before/after with gradient slider */}
-        <div className="relative rounded-xl overflow-hidden aspect-[4/3] mb-6">
-          <div
-            className="absolute inset-0"
-            style={{
-              background: `linear-gradient(90deg, hsl(18 15% 25%) ${sliderPos}%, hsl(352 42% 81% / 0.3) ${sliderPos}%)`,
-            }}
+        <div className="relative rounded-xl overflow-hidden aspect-[4/3] mb-6 select-none">
+          {/* After — vibrant, glowing skin */}
+          <img
+            src={aboutImg}
+            alt={t('After — radiant, glowing skin', 'بعد — بشرة مشرقة ومتوهجة')}
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ filter: 'saturate(1.25) contrast(1.05) brightness(1.05)' }}
+            loading="lazy"
+            decoding="async"
+            draggable={false}
           />
-          <div className="absolute inset-0 flex">
-            <div className="flex-1 flex items-center justify-center" style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}>
-              <div className="text-center">
-                <p className="font-serif text-2xl text-foreground/40">{t('Before', 'قبل')}</p>
-                <p className="text-foreground/30 text-sm mt-2">{t('Dull & uneven skin', 'بشرة باهتة وغير متساوية')}</p>
-              </div>
-            </div>
-            <div className="flex-1 flex items-center justify-center" style={{ clipPath: `inset(0 0 0 ${sliderPos}%)` }}>
-              <div className="text-center">
-                <p className="font-serif text-2xl text-primary">{t('After', 'بعد')}</p>
-                <p className="text-primary/60 text-sm mt-2">{t('Radiant & glowing', 'مشرقة ومتوهجة')}</p>
-              </div>
+          {/* Before — dull, uneven skin (clipped to the left of the slider) */}
+          <img
+            src={aboutImg}
+            alt={t('Before — dull, uneven skin', 'قبل — بشرة باهتة وغير متساوية')}
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{
+              clipPath: `inset(0 ${100 - sliderPos}% 0 0)`,
+              filter: 'grayscale(0.85) brightness(0.82) contrast(0.9) saturate(0.5)',
+            }}
+            loading="lazy"
+            decoding="async"
+            draggable={false}
+          />
+
+          {/* Labels */}
+          <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs uppercase tracking-wider bg-background/70 backdrop-blur-md text-foreground/70 border border-foreground/10">
+            {t('Before', 'قبل')}
+          </span>
+          <span className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs uppercase tracking-wider bg-primary/90 text-primary-foreground">
+            {t('After', 'بعد')}
+          </span>
+
+          {/* Slider line + handle */}
+          <div className="absolute top-0 bottom-0 w-0.5 bg-primary" style={{ left: `${sliderPos}%` }}>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg">
+              <ChevronLeft size={14} />
+              <ChevronRight size={14} className="-ml-1" />
             </div>
           </div>
-          {/* Slider line */}
-          <div className="absolute top-0 bottom-0 w-0.5 bg-primary/60" style={{ left: `${sliderPos}%` }} />
+
           <input
             type="range"
             min="0"
             max="100"
             value={sliderPos}
             onChange={(e) => setSliderPos(Number(e.target.value))}
+            aria-label={t('Drag to compare before and after', 'اسحبي للمقارنة بين قبل وبعد')}
             className="absolute inset-0 w-full h-full opacity-0 cursor-col-resize"
           />
         </div>

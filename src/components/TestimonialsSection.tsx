@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import { Star } from 'lucide-react';
 import { useLang } from '@/contexts/LanguageContext';
+import SectionHeading from '@/components/SectionHeading';
 // @ts-ignore
 import 'swiper/css';
 // @ts-ignore
@@ -39,21 +40,15 @@ const TestimonialsSection = () => {
   const { t } = useLang();
 
   return (
-    <section className="section-padding max-w-7xl mx-auto">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center mb-16"
-      >
-        <p className="text-primary/70 tracking-[0.2em] text-xs uppercase mb-4">
-          {t('Testimonials', 'آراء العملاء')}
-        </p>
-        <h2 className="font-serif text-3xl md:text-5xl font-semibold">
-          {t('What Our Clients ', 'ماذا تقول ')}
-          <span className="text-gradient-rose">{t('Say', 'عميلاتنا')}</span>
-        </h2>
-      </motion.div>
+    <section className="section">
+      <SectionHeading
+        eyebrowEn="Testimonials"
+        eyebrowAr="آراء العملاء"
+        titleEn="What Our Clients "
+        titleAr="ماذا تقول "
+        highlightEn="Say"
+        highlightAr="عميلاتنا"
+      />
 
       <motion.div
         initial={{ opacity: 0 }}

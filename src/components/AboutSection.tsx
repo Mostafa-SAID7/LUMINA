@@ -6,7 +6,7 @@ const AboutSection = () => {
   const { t } = useLang();
 
   return (
-    <section id="about" className="section-padding max-w-7xl mx-auto">
+    <section id="about" className="section">
       <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -16,7 +16,7 @@ const AboutSection = () => {
           className="relative"
         >
           <div className="rounded-2xl overflow-hidden cinematic-shadow">
-            <img src={aboutImg} alt="About Lumina Beauty" className="w-full aspect-[4/5] object-cover" loading="lazy" />
+            <img src={aboutImg} alt="About Lumina Beauty" className="w-full aspect-[4/5] object-cover" loading="lazy" decoding="async" />
           </div>
           <div className="absolute -bottom-6 -right-6 w-32 h-32 rounded-full bg-primary/10 blur-3xl animate-glow-pulse" />
         </motion.div>
