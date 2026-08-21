@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Leaf, Heart, Shield, Sparkles } from 'lucide-react';
 import { useLang } from '@/contexts/LanguageContext';
+import SectionHeading from '@/components/SectionHeading';
 
 const features = [
   { icon: Leaf, en: 'Natural Ingredients', ar: 'مكونات طبيعية', descEn: 'Sourced from the purest botanical gardens worldwide.', descAr: 'مستخرجة من أنقى الحدائق النباتية حول العالم.' },
@@ -13,21 +14,15 @@ const PhilosophySection = () => {
   const { t } = useLang();
 
   return (
-    <section className="section-padding max-w-7xl mx-auto">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center mb-16"
-      >
-        <p className="text-primary/70 tracking-[0.2em] text-xs uppercase mb-4">
-          {t('Our Philosophy', 'فلسفتنا')}
-        </p>
-        <h2 className="font-serif text-3xl md:text-5xl font-semibold">
-          {t('Why Choose ', 'لماذا تختارين ')}
-          <span className="text-gradient-rose">{t('Lumina', 'لومينا')}</span>
-        </h2>
-      </motion.div>
+    <section className="section">
+      <SectionHeading
+        eyebrowEn="Our Philosophy"
+        eyebrowAr="فلسفتنا"
+        titleEn="Why Choose "
+        titleAr="لماذا تختارين "
+        highlightEn="Lumina"
+        highlightAr="لومينا"
+      />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {features.map((f, i) => (

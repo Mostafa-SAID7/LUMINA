@@ -46,7 +46,7 @@ const ConsultationSection = () => {
   const inputClass = "w-full px-5 py-3 rounded-xl bg-muted/30 border border-foreground/[0.08] text-foreground placeholder:text-muted-foreground text-sm focus:outline-none focus:border-primary/40 transition-colors";
 
   return (
-    <section id="consultation" className="section-padding max-w-7xl mx-auto">
+    <section id="consultation" className="section">
       <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
         <motion.div
           initial={{ opacity: 0, x: -40 }}

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useLang } from '@/contexts/LanguageContext';
+import SectionHeading from '@/components/SectionHeading';
 import catSkincare from '@/assets/cat-skincare.jpg';
 import catMakeup from '@/assets/cat-makeup.jpg';
 import catHaircare from '@/assets/cat-haircare.jpg';
@@ -16,21 +17,15 @@ const CategoriesSection = () => {
   const { t } = useLang();
 
   return (
-    <section className="section-padding max-w-7xl mx-auto">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center mb-16"
-      >
-        <p className="text-primary/70 tracking-[0.2em] text-xs uppercase mb-4">
-          {t('Shop By Category', 'تسوقي حسب الفئة')}
-        </p>
-        <h2 className="font-serif text-3xl md:text-5xl font-semibold">
-          {t('Explore Our ', 'استكشفي ')}
-          <span className="text-gradient-rose">{t('World', 'عالمنا')}</span>
-        </h2>
-      </motion.div>
+    <section className="section">
+      <SectionHeading
+        eyebrowEn="Shop By Category"
+        eyebrowAr="تسوقي حسب الفئة"
+        titleEn="Explore Our "
+        titleAr="استكشفي "
+        highlightEn="World"
+        highlightAr="عالمنا"
+      />
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         {categories.map((cat, i) => (

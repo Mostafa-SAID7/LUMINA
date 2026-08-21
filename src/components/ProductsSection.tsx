@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingBag, Eye, X, Star, Droplets, CheckCircle } from 'lucide-react';
 import { useLang } from '@/contexts/LanguageContext';
+import SectionHeading from '@/components/SectionHeading';
 import { toast } from 'sonner';
 
 import productSerum from '@/assets/product-serum.jpg';
@@ -205,21 +206,15 @@ const ProductsSection = () => {
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
 
   return (
-    <section id="products" className="section-padding max-w-7xl mx-auto">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center mb-16"
-      >
-        <p className="text-primary/70 tracking-[0.2em] text-xs uppercase mb-4">
-          {t('Best Sellers', 'الأكثر مبيعاً')}
-        </p>
-        <h2 className="font-serif text-3xl md:text-5xl font-semibold">
-          {t('Signature ', 'المنتجات ')}
-          <span className="text-gradient-rose">{t('Collection', 'المميزة')}</span>
-        </h2>
-      </motion.div>
+    <section id="products" className="section">
+      <SectionHeading
+        eyebrowEn="Best Sellers"
+        eyebrowAr="الأكثر مبيعاً"
+        titleEn="Signature "
+        titleAr="المنتجات "
+        highlightEn="Collection"
+        highlightAr="المميزة"
+      />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {products.map((product) => (

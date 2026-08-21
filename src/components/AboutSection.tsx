@@ -6,7 +6,7 @@ const AboutSection = () => {
   const { t } = useLang();
 
   return (
-    <section id="about" className="section-padding max-w-7xl mx-auto">
+    <section id="about" className="section">
       <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
