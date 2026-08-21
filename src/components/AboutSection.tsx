@@ -16,7 +16,7 @@ const AboutSection = () => {
           className="relative"
         >
           <div className="rounded-2xl overflow-hidden cinematic-shadow">
-            <img src={aboutImg} alt="About Lumina Beauty" className="w-full aspect-[4/5] object-cover" loading="lazy" />
+            <img src={aboutImg} alt="About Lumina Beauty" className="w-full aspect-[4/5] object-cover" loading="lazy" decoding="async" />
           </div>
           <div className="absolute -bottom-6 -right-6 w-32 h-32 rounded-full bg-primary/10 blur-3xl animate-glow-pulse" />
         </motion.div>

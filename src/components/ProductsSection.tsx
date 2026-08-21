@@ -95,7 +95,7 @@ const QuickViewModal = ({ product, onClose }: { product: Product; onClose: () =>
 
         <div className="grid md:grid-cols-2 gap-0">
           <div className="aspect-square md:aspect-auto overflow-hidden rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none">
-            <img src={product.img} alt={product.en} className="w-full h-full object-cover" />
+            <img src={product.img} alt={product.en} className="w-full h-full object-cover" loading="lazy" decoding="async" />
           </div>
 
           <div className="p-6 md:p-8 flex flex-col justify-center">
@@ -166,6 +166,7 @@ const ProductCard = ({ product, onQuickView }: { product: Product; onQuickView: 
           alt={product.en}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           loading="lazy"
+          decoding="async"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-4 gap-3">
           <button
