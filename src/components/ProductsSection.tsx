@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingBag, Eye, X, Star, Droplets, CheckCircle } from 'lucide-react';
 import { useLang } from '@/contexts/LanguageContext';
+import SectionHeading from '@/components/SectionHeading';
 import { toast } from 'sonner';
 
 import productSerum from '@/assets/product-serum.jpg';
@@ -94,7 +95,7 @@ const QuickViewModal = ({ product, onClose }: { product: Product; onClose: () =>
 
         <div className="grid md:grid-cols-2 gap-0">
           <div className="aspect-square md:aspect-auto overflow-hidden rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none">
-            <img src={product.img} alt={product.en} className="w-full h-full object-cover" />
+            <img src={product.img} alt={product.en} className="w-full h-full object-cover" loading="lazy" decoding="async" />
           </div>
 
           <div className="p-6 md:p-8 flex flex-col justify-center">
@@ -165,6 +166,7 @@ const ProductCard = ({ product, onQuickView }: { product: Product; onQuickView: 
           alt={product.en}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           loading="lazy"
+          decoding="async"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-4 gap-3">
           <button
@@ -205,21 +207,15 @@ const ProductsSection = () => {
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
 
   return (
-    <section id="products" className="section-padding max-w-7xl mx-auto">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center mb-16"
-      >
-        <p className="text-primary/70 tracking-[0.2em] text-xs uppercase mb-4">
-          {t('Best Sellers', 'الأكثر مبيعاً')}
-        </p>
-        <h2 className="font-serif text-3xl md:text-5xl font-semibold">
-          {t('Signature ', 'المنتجات ')}
-          <span className="text-gradient-rose">{t('Collection', 'المميزة')}</span>
-        </h2>
-      </motion.div>
+    <section id="products" className="section">
+      <SectionHeading
+        eyebrowEn="Best Sellers"
+        eyebrowAr="الأكثر مبيعاً"
+        titleEn="Signature "
+        titleAr="المنتجات "
+        highlightEn="Collection"
+        highlightAr="المميزة"
+      />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {products.map((product) => (
